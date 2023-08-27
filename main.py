@@ -2,7 +2,7 @@ import hashlib
 import jwt
 import datetime
 
-# Hash the password for comparison
+
 passhash = hashlib.sha256("whoami".encode()).hexdigest()
 
 def login(password):
@@ -19,8 +19,10 @@ while True:
         print("Wrong password. Please enter again.")
 
 if login_attempt:
+    print("Login successfull")
+    print("Welcome to your password vault")
     with open("data.txt", "r+") as file1:
-        inpt = input("Enter 1 to read data\nEnter 2 to add new data: ")
+        inpt = input("Enter 1 to read data.\nEnter 2 to add new data:\n Enter 3 to exit the program. ")
 
         match inpt:
             case "1":
@@ -49,4 +51,11 @@ if login_attempt:
                 encoded = jwt.encode(token_data, password, algorithm='HS256')
                 file1.seek(0)
                 file1.write(encoded)
-                file1.truncate
+                
+                print("Data added successfully")
+            case"3":
+                print("Exiting the program")
+                exit
+            case "default":
+                print("Invalid choice.Please enter valid choice")
+
